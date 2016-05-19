@@ -2,16 +2,16 @@ package hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
 @SpringBootApplication
-@EnableCaching
+@ImportResource(locations = "classpath:spring-context.xml")
+//@EnableCaching
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
@@ -23,13 +23,24 @@ public class Application {
 
         @Override
         public void run(String... args) throws Exception {
+
+            //结论请参见SimpleBookRepository
             log.info(".... Fetching books");
-            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-            log.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
-            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-            log.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
-            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+            //            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+            //            log.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
+            //            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+            //            log.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
+            //            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+            //            log.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+            //            log.info("isbn-1234 -->" + bookRepository.getTitleByIsbn("isbn-1234"));
+            //            log.info("isbn-1234 -->" + bookRepository.getNameByIsbn("isbn-1234"));
+            //            log.info("isbn-1234 -->" + bookRepository.getTitleByIsbn("isbn-1234"));
+            //            log.info("isbn-1234 -->" + bookRepository.getNameByIsbn("isbn-1234"));
+
+            log.info("isbn-1234 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-1234", "title")));
+            log.info("isbn-4567 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-4567", "title")));
+            log.info("isbn-1234 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-1234", "title")));
+            log.info("isbn-4567 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-4567", "title")));
         }
     }
 
