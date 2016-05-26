@@ -4,6 +4,9 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 @CacheConfig(cacheNames = "books") //如果这个类方法中@Cacheable未设置value,那么就使用这个cacheName
 public class SimpleBookRepository implements BookRepository {
@@ -41,10 +44,37 @@ public class SimpleBookRepository implements BookRepository {
         return book.getIsbn() + "'bookInstance";
     }
 
+    @Override
+//    @Cacheable( key = "#root.methodName")
+    //Spring默认的key是通过参数名来生成的,所以像这样没有参数的方法,那么返回的值是一样的。
+    //要想区分二者存储的,则需要加不同的key或者使用自定制的keyGenerator
+    @Cacheable
+    public List<Book> findAllBook1() {
+        simulateSlowService();
+        Book book = new Book("findAll1", "findAll1=book");
+        return Arrays.asList(book);
+    }
+
+    @Override
+//    @Cacheable(key = "#root.methodName")
+    @Cacheable
+    public List<Book> findAllBook2() {
+        simulateSlowService();
+        Book book = new Book("findAll2", "findAll2=book");
+        return Arrays.asList(book);
+    }
+
+    @Override
+    @Cacheable //如上面所说,如果这里加了@Cacheable,因为默认key通前面一样,所以返回的实际是 List<Book> ,这是很恐怖的
+    public List<String> findAllBookNames() {
+        simulateSlowService();
+        return Arrays.asList("findAllBookNames");
+    }
+
     // Don't do this at home
     private void simulateSlowService() {
         try {
-            long time = 5000L;
+            long time = 2000L;
             Thread.sleep(time);
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);

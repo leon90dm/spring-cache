@@ -37,10 +37,16 @@ public class Application {
             //            log.info("isbn-1234 -->" + bookRepository.getTitleByIsbn("isbn-1234"));
             //            log.info("isbn-1234 -->" + bookRepository.getNameByIsbn("isbn-1234"));
 
-            log.info("isbn-1234 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-1234", "title")));
-            log.info("isbn-4567 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-4567", "title")));
-            log.info("isbn-1234 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-1234", "title")));
-            log.info("isbn-4567 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-4567", "title")));
+//            log.info("isbn-1234 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-1234", "title")));
+//            log.info("isbn-4567 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-4567", "title")));
+//            log.info("isbn-1234 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-1234", "title")));
+//            log.info("isbn-4567 -->" + bookRepository.getNameByBookIsbn(new Book("isbn-4567", "title")));
+            System.out.println(bookRepository.findAllBook1());
+            System.out.println(bookRepository.findAllBook2());
+            System.out.println(bookRepository.findAllBook1());
+            System.out.println(bookRepository.findAllBook2());
+            System.out.println(bookRepository.findAllBookNames());
+            System.out.println(bookRepository.findAllBookNames());
         }
     }
 
